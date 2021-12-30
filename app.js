@@ -1,11 +1,31 @@
 const express = require('express')
 const { success } = require('./helper.js')
+const morgan = require('morgan') // package npm qui fait la même chose que logger
+const favicon = require('serve-favicon')
 //const helper = require('helper.js')
 let pokemons = require('./mock-pokemon')
 
 
 const app = express()
 const port = 3000
+
+app
+    .use(favicon(__dirname + '/favicon.ico')) //appeler use autant de fois qu'il y a de middleware a implémenter et les chaînant en détermiant l'odre entre eux
+    .use(morgan('dev'))
+
+/*Version pédagogique du middleware code logger
+const logger = (req, res, next) => {
+    console.log(`URL : ${req.url}`)
+    next()
+}
+app.use(logger)
+*/
+
+// Version courante et plus concise de logger :
+//app.use((req, res, next) => {
+//    console.log(`URL : ${req.url}`)
+//    next()
+//})
 
 
 app.get('/', (req,res) => res.send('Hello, Express :)'))
