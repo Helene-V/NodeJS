@@ -14,3 +14,5 @@ module.exports = (app) => {
     })
   })
 }
+
+// Faire deux requêtes pour faire une modification, d'abord update puis findByPk

@@ -14,3 +14,5 @@ module.exports = (app) => {
     })
   })
 }
+
+// On récupère le pokemon tel qu'il est dans la db pour le présenter au client avec findByPk avant de le destroy
