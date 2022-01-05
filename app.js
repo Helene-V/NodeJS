@@ -1,19 +1,22 @@
 const express = require('express')
-const morgan = require('morgan') // package npm qui fait la même chose que logger
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const sequelize = require('./src/db/sequelize')
+const { json } = require('body-parser')
 
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 app
     .use(favicon(__dirname + '/favicon.ico')) //appeler use autant de fois qu'il y a de middleware a implémenter et les chaînant en détermiant l'odre entre eux
-    .use(morgan('dev'))
     .use(bodyParser.json()) // inclus dans express maintenant
 
 sequelize.initDb()
+
+app.get('/', (req,res) => {
+    res.json('Hello, Heroku ! :)')
+})
 
 // Ici nous placerons les futurs points de terminaisons
 require('./src/routes/findAllPokemons')(app)
